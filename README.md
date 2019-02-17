@@ -1,24 +1,6 @@
-# README
+# Rails Tutorial
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- 詰まったところ
+  - bundle installを行ったときに失敗、
+    - bundle updateを行えば解決（Gemfile.lockに書き込まれているからGemfileを変更したときに差分が生じるため
+    - routes.rbがどうこうって言われるときはrootの場合だけ、hoge#indexとかのように#にする必要がある
