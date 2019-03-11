@@ -4,6 +4,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
     @other_user = users(:archer)
+    @non_activated_user = users(:non_activated)
   end
 
   test "should get new" do
@@ -44,6 +45,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'User.count' do
       delete user_path(@user)
     end
+    assert_redirected_to root_url
+  end
+
+  test "should redirect when not activated" do
+    log_in_as(@non_activated_user)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_not flash.empty?
+    assert_select "div.alert-warning", "Account not activated.Check your email for the activation link."
+    get users_path
+    assert_select "a[href=?]", user_path(@non_activated_user), count: 0
+    get user_path(@non_activated_user)
     assert_redirected_to root_url
   end
 end
